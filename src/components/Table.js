@@ -3,7 +3,9 @@ import DataTable from "react-data-table-component"
 import TrashIcon from "../icons/TrashIcon";
 import EditIcon from "../icons/EditIcon";
 import Tooltip from "./Tooltip";
-const Table = ( ) => {
+import {observer} from "mobx-react-lite";
+
+const Table = observer(({data, onDeleteRow, onEditRow}) => {
     const columns = [
         {
             name: "Предмет",
@@ -66,7 +68,7 @@ const Table = ( ) => {
         {
             name: "Зачтено",
             cell: (row) => (
-                row.done ? "Да" : "Нет"
+                row.passed ? "Да" : "Нет"
             ),
             minWidth: 140,
             style: {
@@ -79,13 +81,14 @@ const Table = ( ) => {
                 <>
                     <Tooltip position="top"
                              content="Удалить"
-                             style={{ width: "80px", textAlign: "center" }}>
-                        <TrashIcon onclick={() => console.log(row.id)}/>
+                             style={{width: "80px", textAlign: "center"}}>
+                        <TrashIcon onClick={() => onDeleteRow instanceof Function && onDeleteRow(row.id)}/>
                     </Tooltip>
                     <Tooltip position="top"
                              content="Редактировать"
-                             style={{ width: "120px", marginLeft: "10px", textAlign: "center" }}>
-                        <EditIcon style={{marginLeft: 10}} onclick={() => console.log(row.id)}/>
+                             style={{width: "120px", marginLeft: "10px", textAlign: "center"}}>
+                        <EditIcon style={{marginLeft: 10}}
+                                  onClick={() => onEditRow instanceof Function && onEditRow(row)}/>
                     </Tooltip>
                 </>
             ),
@@ -93,159 +96,6 @@ const Table = ( ) => {
             style: {
                 minWidth: 120,
             },
-        },
-    ]
-
-    const data = [
-        {
-            id: 1,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 2,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 3,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 4,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 5,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 6,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 7,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 8,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 9,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 10,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 11,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 12,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 13,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 14,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
-        },
-        {
-            id: 15,
-            discipline: "ШШШШШШШШШШШШШШШШ",
-            mark5: 9999999999999,
-            mark4: 0,
-            mark3: 0,
-            mark2: 0,
-            skipped: 0,
-            done: true,
         },
     ]
 
@@ -282,10 +132,10 @@ const Table = ( ) => {
                       customStyles={customStyle}
                       responsive
                       fixedHeader={true}
-                      pagination={data.length > 10}
+                      pagination={data && data.length > 10}
                       paginationComponentOptions={paginationComponentOptions}
                       noDataComponent={<div style={{padding: 24}}>Нет данных</div>}
-        />
-}
+    />
+});
 
 export default Table;

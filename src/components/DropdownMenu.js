@@ -4,11 +4,7 @@ const DropdownMenu = ({ buttonText, items }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
-
-    const handleClickOutside = (event) => {
+    function handleClickOutside(event) {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             setIsOpen(false);
         }
@@ -23,11 +19,11 @@ const DropdownMenu = ({ buttonText, items }) => {
 
     return (
         <div className="dropdown" ref={dropdownRef}>
-            <div onMouseEnter={toggleMenu} className="dropdown-toggle">
+            <div onMouseEnter={() => setIsOpen(true)} className="dropdown-toggle">
                 {buttonText}
             </div>
             {isOpen && (
-                <ul className="dropdown-menu" onMouseLeave={toggleMenu} >
+                <ul className="dropdown-menu" onMouseLeave={() => setIsOpen(false)} >
                     {items.map((item, index) => (
                         <li key={index} className="dropdown-item">
                             {item}
