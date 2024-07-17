@@ -134,6 +134,7 @@ header {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
   background-color: @beige;
   margin: 10px 0;
+  z-index: 999999;
 }
 
 footer {
@@ -145,7 +146,7 @@ footer {
   justify-content: space-between;
   padding: 40px;
   align-items: center;
-  margin-top: 50px;
+  //margin-top: 50px;
 }
 
 .icon-footer {
@@ -257,6 +258,25 @@ footer {
     border-radius: 10px;
     text-align: center;
   }
+
+  .invalid {
+    color: red;
+    outline: none;
+    border: 2px solid red;
+    &:focus {
+      border: 3px solid red;
+    }
+  }
+
+  div {
+    display: grid;
+    text-align: center;
+  }
+}
+
+.error-ad {
+  color: red;
+  font-size: 14px;
 }
 
 .input-search {
@@ -277,6 +297,10 @@ footer {
     flex-basis: 250px;
   }
 
+  .rdt_TableCol:nth-child(1) {
+    flex-basis: 50px;
+  }
+
   .rdt_TableCol {
     flex-basis: 120px;
   }
@@ -285,6 +309,10 @@ footer {
 .rdt_TableRow {
   .rdt_TableCell:nth-child(2) {
     flex-basis: 250px;
+  }
+
+  .rdt_TableCell:nth-child(1) {
+    flex-basis: 50px;
   }
 
   .rdt_TableCell {

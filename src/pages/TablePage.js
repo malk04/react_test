@@ -39,7 +39,7 @@ const TablePage = observer(() => {
     return <>
         <Header/>
         <div className="container not-vertical-center">
-            <div style={{maxWidth: 1400, margin: "auto"}}>
+            <div style={{maxWidth: 1400, margin: "auto", maxHeight: 700}}>
                 <div style={{display: "flex", justifyContent: "space-between", marginBottom: 15}}>
                     <div>
                         <div className="tooltipWrapper">
@@ -69,6 +69,7 @@ const TablePage = observer(() => {
                     </div>
                     <label>Поиск по дисциплине:
                         <input className="input-search"
+                               type="search"
                                value={filterValue}
                                onChange={handleFilter}/>
                     </label>

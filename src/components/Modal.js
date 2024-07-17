@@ -81,7 +81,8 @@ const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialDat
                         <div className="form-item">
                             <label>Предмет:</label>
                             <div>
-                                <input name="discipline"
+                                <input className={errors?.discipline && "invalid"}
+                                       name="discipline"
                                        {...register("discipline", {
                                            required: "Поле обязательно для заполнения",
                                            minLength: {
@@ -104,7 +105,8 @@ const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialDat
                         <div className="form-item">
                             <label>Количество 5-ок:</label>
                             <div>
-                                <input name="mark5"
+                                <input className={errors?.mark5 && "invalid"}
+                                       name="mark5"
                                        {...register("mark5", {
                                            required: "Поле обязательно для заполнения",
                                            validate: validateNumber,
@@ -120,7 +122,8 @@ const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialDat
                         <div className="form-item">
                             <label>Количество 4-ок:</label>
                             <div>
-                                <input name="mark4"
+                                <input className={errors?.mark4 && "invalid"}
+                                       name="mark4"
                                        {...register("mark4", {
                                            required: "Поле обязательно для заполнения",
                                            validate: validateNumber,
@@ -136,7 +139,8 @@ const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialDat
                         <div className="form-item">
                             <label>Количество 3-ек:</label>
                             <div>
-                                <input name="mark3"
+                                <input className={errors?.mark3 && "invalid"}
+                                       name="mark3"
                                        {...register("mark3", {
                                            required: "Поле обязательно для заполнения",
                                            validate: validateNumber,
@@ -152,7 +156,8 @@ const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialDat
                         <div className="form-item">
                             <label>Количество 2-ек:</label>
                             <div>
-                                <input name="mark2"
+                                <input className={errors?.mark2 && "invalid"}
+                                       name="mark2"
                                        {...register("mark2", {
                                            required: "Поле обязательно для заполнения",
                                            validate: validateNumber,
@@ -168,7 +173,8 @@ const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialDat
                         <div className="form-item">
                             <label>Пропущенных занятий:</label>
                             <div>
-                                <input name="skipped"
+                                <input className={errors?.skipped && "invalid"}
+                                       name="skipped"
                                        {...register("skipped", {
                                            required: "Поле обязательно для заполнения",
                                            validate: validateNumber,

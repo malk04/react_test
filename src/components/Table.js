@@ -72,7 +72,6 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
             cell: (row) => (
                 row.passed ? "Да" : "Нет"
             ),
-            minWidth: 140,
             style: {
                 minWidth: 120,
             },
@@ -94,7 +93,7 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
                     </Tooltip>
                 </>
             ),
-            minWidth: 140,
+            minWidth: 120,
             style: {
                 minWidth: 120,
             },
@@ -138,11 +137,13 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
                       customStyles={customStyle}
                       responsive
                       fixedHeader
+                      fixedHeaderScrollHeight="600px"
                       pagination={data && data.length > 10}
                       paginationComponentOptions={paginationComponentOptions}
                       noDataComponent={<div style={{padding: 24}}>Нет данных</div>}
                       selectableRows
                       onSelectedRowsChange={handleRowSelected}
+                      selectableRowsComponentProps={{ style: { width: '50px' } }}
     />
 });
 
