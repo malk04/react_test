@@ -4,12 +4,14 @@ import TrashIcon from "../icons/TrashIcon";
 import EditIcon from "../icons/EditIcon";
 import Tooltip from "./Tooltip";
 import {observer} from "mobx-react-lite";
+import dataStore from "../stores/DataStore";
 
 const Table = observer(({data, onDeleteRow, onEditRow}) => {
     const columns = [
         {
             name: "Предмет",
             sortable: true,
+            selector: row => row.discipline,
             style: {
                 minWidth: 250
             },
@@ -127,14 +129,20 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
         rangeSeparatorText: 'из',
     };
 
+    function handleRowSelected(state) {
+        dataStore.setSelectedRows(state.selectedRows.map(row => row.id));
+    }
+
     return <DataTable data={data}
                       columns={columns}
                       customStyles={customStyle}
                       responsive
-                      fixedHeader={true}
+                      fixedHeader
                       pagination={data && data.length > 10}
                       paginationComponentOptions={paginationComponentOptions}
                       noDataComponent={<div style={{padding: 24}}>Нет данных</div>}
+                      selectableRows
+                      onSelectedRowsChange={handleRowSelected}
     />
 });
 

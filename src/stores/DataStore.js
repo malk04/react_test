@@ -2,6 +2,8 @@ import {makeAutoObservable} from "mobx";
 
 class DataStore {
     data = [];
+    selectedRows = [];
+    filterCriteria = null;
 
     constructor() {
         makeAutoObservable(this);
@@ -35,6 +37,29 @@ class DataStore {
         if (data) {
             this.data = JSON.parse(data);
         }
+    }
+
+    setSelectedRows(rows) {
+        this.selectedRows = rows;
+    }
+
+    deleteSelectedRows() {
+        const newData = this.data.filter(row => !this.selectedRows.includes(row.id));
+        this.data = newData;
+        localStorage.setItem('dataStudyMate', JSON.stringify(newData));
+    }
+
+    setFilterCriteria(criteria) {
+        this.filterCriteria = criteria;
+    }
+
+    get filteredData() {
+        if (!this.filterCriteria) {
+            return this.data;
+        }
+        return this.data.filter(item => {
+            return item.discipline.includes(this.filterCriteria);
+        });
     }
 }
 

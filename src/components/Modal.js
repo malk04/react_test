@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {observer} from "mobx-react-lite";
+import {useForm} from "react-hook-form";
 
 const nullData = {
     discipline: "",
@@ -11,13 +12,18 @@ const nullData = {
 }
 
 const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialData}) => {
-    const [formData, setFormData] = useState(nullData);
+    const {
+        register,
+        formState: {errors},
+        reset,
+        handleSubmit,
+    } = useForm({
+        mode: "onChange"
+    })
 
     useEffect(() => {
-        if (initialData) {
-            setFormData(initialData);
-        }
-    }, [initialData]);
+        initialData ? reset(initialData) : reset(nullData);
+    }, [initialData, reset]);
 
     function checkIsPassed(data) {
         const totalMarks = data.mark5 * 5 + data.mark4 * 4 + data.mark3 * 3 + data.mark2 * 2;
@@ -43,72 +49,136 @@ const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialDat
         return {updatedData, result};
     }
 
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormData({
-            ...formData,
-            [name]: name === "discipline" ? value : parseInt(value, 10)
-        });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData);
-        let {updatedData, result} = checkIsPassed(formData)
+    const handleOnSubmit = (data) => {
+        console.log(data);
+        let {updatedData, result} = checkIsPassed(data)
         console.log(updatedData, result);
         onSubmit(updatedData);
-        setFormData(nullData);
+        reset(nullData);
         setIsOpen(false);
     };
+
+    function validateNumber(value) {
+        if (!/^\d+$/.test(value)) {
+            return "Допустим ввод только цифр";
+        }
+        return true;
+    }
 
     return <div className={isOpen ? "popup open" : "popup"}>
         <div className="popup_body">
             <div className="popup_content">
                 <div onClick={() => {
-                    setFormData(nullData);
+                    reset(nullData);
                     setInitialData(undefined);
                     setIsOpen(false)
                 }} className="popup_close">X
                 </div>
                 <div className="popup_title">Проверка зачета</div>
 
-                <form id="ad" name="ad" onSubmit={handleSubmit}>
+                <form id="ad" name="ad" onSubmit={handleSubmit(handleOnSubmit)}>
                     <div className="popup_text">
-                        <p className="error-ad"></p>
                         <div className="form-item">
                             <label>Предмет:</label>
-                            <input type="text" name="discipline" value={formData.discipline} onChange={handleChange}
-                                   required/>
+                            <div>
+                                <input name="discipline"
+                                       {...register("discipline", {
+                                           required: "Поле обязательно для заполнения",
+                                           minLength: {
+                                               value: 3,
+                                               message: "Введите минимум 3 символа"
+                                           },
+                                           maxLength: {
+                                               value: 16,
+                                               message: "Допустимо не более 16 символов"
+                                           }
+                                       })}
+                                />
+                                {errors?.discipline && <p className="error-ad">
+                                    {errors?.discipline?.message || "Ошибка"}
+                                </p>}
+                            </div>
                         </div>
+
 
                         <div className="form-item">
                             <label>Количество 5-ок:</label>
-                            <input type="number" name="mark5" value={formData.mark5} onChange={handleChange} min={0}
-                                   step={1} required/>
+                            <div>
+                                <input name="mark5"
+                                       {...register("mark5", {
+                                           required: "Поле обязательно для заполнения",
+                                           validate: validateNumber,
+                                           valueAsNumber: true
+                                       })}
+                                />
+                                {errors?.mark5 && <p className="error-ad">
+                                    {errors?.mark5?.message || "Ошибка"}
+                                </p>}
+                            </div>
                         </div>
 
                         <div className="form-item">
                             <label>Количество 4-ок:</label>
-                            <input type="number" name="mark4" value={formData.mark4} onChange={handleChange} min={0}
-                                   step={1} required/>
+                            <div>
+                                <input name="mark4"
+                                       {...register("mark4", {
+                                           required: "Поле обязательно для заполнения",
+                                           validate: validateNumber,
+                                           valueAsNumber: true
+                                       })}
+                                />
+                                {errors?.mark4 && <p className="error-ad">
+                                    {errors?.mark4?.message || "Ошибка"}
+                                </p>}
+                            </div>
                         </div>
 
                         <div className="form-item">
                             <label>Количество 3-ек:</label>
-                            <input type="number" name="mark3" value={formData.mark3} onChange={handleChange} min={0}
-                                   step={1} required/>
+                            <div>
+                                <input name="mark3"
+                                       {...register("mark3", {
+                                           required: "Поле обязательно для заполнения",
+                                           validate: validateNumber,
+                                           valueAsNumber: true
+                                       })}
+                                />
+                                {errors?.mark3 && <p className="error-ad">
+                                    {errors?.mark3?.message || "Ошибка"}
+                                </p>}
+                            </div>
                         </div>
 
                         <div className="form-item">
                             <label>Количество 2-ек:</label>
-                            <input type="number" name="mark2" value={formData.mark2} onChange={handleChange} min={0}
-                                   step={1} required/>
+                            <div>
+                                <input name="mark2"
+                                       {...register("mark2", {
+                                           required: "Поле обязательно для заполнения",
+                                           validate: validateNumber,
+                                           valueAsNumber: true
+                                       })}
+                                />
+                                {errors?.mark2 && <p className="error-ad">
+                                    {errors?.mark2?.message || "Ошибка"}
+                                </p>}
+                            </div>
                         </div>
 
                         <div className="form-item">
                             <label>Пропущенных занятий:</label>
-                            <input type="number" name="skipped" value={formData.skipped}
-                                   onChange={handleChange} required/>
+                            <div>
+                                <input name="skipped"
+                                       {...register("skipped", {
+                                           required: "Поле обязательно для заполнения",
+                                           validate: validateNumber,
+                                           valueAsNumber: true
+                                       })}
+                                />
+                                {errors?.skipped && <p className="error-ad">
+                                    {errors?.skipped?.message || "Ошибка"}
+                                </p>}
+                            </div>
                         </div>
                         <button className="button-style" type="submit">Проверить</button>
                     </div>
