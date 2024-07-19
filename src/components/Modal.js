@@ -1,6 +1,8 @@
-import React, {useEffect} from "react";
+import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react-lite";
 import {useForm} from "react-hook-form";
+import { v4 as uuid } from 'uuid';
+import {CustomContext} from "../utils/Context";
 
 const nullData = {
     discipline: "",
@@ -12,6 +14,8 @@ const nullData = {
 }
 
 const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialData}) => {
+    const {user} = useContext(CustomContext)
+
     const {
         register,
         formState: {errors},
@@ -50,11 +54,15 @@ const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialDat
     }
 
     const handleOnSubmit = (data) => {
-        console.log(data);
+        if (!data.id) {
+            data.id = uuid();
+            data.ownerId = user.id
+        }
         let {updatedData, result} = checkIsPassed(data)
-        console.log(updatedData, result);
+        console.log(result);
         onSubmit(updatedData);
         reset(nullData);
+        setInitialData(undefined);
         setIsOpen(false);
     };
 
@@ -76,7 +84,7 @@ const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialDat
                 </div>
                 <div className="popup_title">Проверка зачета</div>
 
-                <form id="ad" name="ad" onSubmit={handleSubmit(handleOnSubmit)}>
+                <form name="add" onSubmit={handleSubmit(handleOnSubmit)}>
                     <div className="popup_text">
                         <div className="form-item">
                             <label>Предмет:</label>

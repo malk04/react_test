@@ -31,6 +31,16 @@ body {
 .input-group {
   font-size: 20px;
   position: relative;
+
+  .password-eye {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+  }
 }
 
 .input-log {
@@ -134,7 +144,7 @@ header {
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
   background-color: @beige;
   margin: 10px 0;
-  z-index: 999999;
+  z-index: 999;
 }
 
 footer {
@@ -400,5 +410,6 @@ footer {
   border-radius: 10px;
   &:hover {
     background-color: @background-color;
+    cursor: pointer;
   }
 }

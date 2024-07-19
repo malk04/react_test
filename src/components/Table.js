@@ -1,7 +1,7 @@
 import React from "react";
 import DataTable from "react-data-table-component"
-import TrashIcon from "../icons/TrashIcon";
-import EditIcon from "../icons/EditIcon";
+import { FaTrashAlt } from "react-icons/fa";
+import { RiEdit2Fill } from "react-icons/ri";
 import Tooltip from "./Tooltip";
 import {observer} from "mobx-react-lite";
 import dataStore from "../stores/DataStore";
@@ -83,12 +83,13 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
                     <Tooltip position="top"
                              content="Удалить"
                              style={{width: "80px", textAlign: "center"}}>
-                        <TrashIcon onClick={() => onDeleteRow instanceof Function && onDeleteRow(row.id)}/>
+                        <FaTrashAlt className="icon-table"
+                                    onClick={() => onDeleteRow instanceof Function && onDeleteRow(row.id)}/>
                     </Tooltip>
                     <Tooltip position="top"
                              content="Редактировать"
                              style={{width: "120px", marginLeft: "10px", textAlign: "center"}}>
-                        <EditIcon style={{marginLeft: 10}}
+                        <RiEdit2Fill style={{marginLeft: 10}} className="icon-table"
                                   onClick={() => onEditRow instanceof Function && onEditRow(row)}/>
                     </Tooltip>
                 </>
@@ -137,7 +138,7 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
                       customStyles={customStyle}
                       responsive
                       fixedHeader
-                      fixedHeaderScrollHeight="600px"
+                      fixedHeaderScrollHeight="550px"
                       pagination={data && data.length > 10}
                       paginationComponentOptions={paginationComponentOptions}
                       noDataComponent={<div style={{padding: 24}}>Нет данных</div>}

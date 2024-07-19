@@ -1,4 +1,5 @@
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, action} from "mobx";
+import axios from "../utils/axios";
 
 class DataStore {
     data = [];
@@ -7,36 +8,41 @@ class DataStore {
 
     constructor() {
         makeAutoObservable(this);
-        this.loadFromLocalStorage();
     }
 
     addItem(item) {
-        this.data.push(item);
-        this.saveToLocalStorage();
+        axios.post('/dataStudyMate', item)
+            .then(({data}) => {
+                 this.data.push(data);
+            })
+            .catch((err) => console.log(err))
     }
 
     removeItem(id) {
-        this.data = this.data.filter(item => item.id !== id);
-        this.saveToLocalStorage();
+        axios.delete(`/dataStudyMate/${id}`)
+            .then(() => {
+                this.data = this.data.filter(item => item.id !== id);
+            })
+            .catch((err) => console.log(err))
     }
 
     updateItem(updatedItem) {
-        const index = this.data.findIndex(item => item.id === updatedItem.id);
-        if (index !== -1) {
-            this.data[index] = updatedItem;
-            this.saveToLocalStorage();
-        }
+        axios.put(`/dataStudyMate/${updatedItem.id}`, updatedItem)
+            .then(({data}) => {
+                const index = this.data.findIndex(item => item.id === updatedItem.id);
+                this.data[index] = data;
+            })
+            .catch((err) => console.log(err))
     }
 
-    saveToLocalStorage() {
-        localStorage.setItem('dataStudyMate', JSON.stringify(this.data));
-    }
-
-    loadFromLocalStorage() {
-        const data = localStorage.getItem('dataStudyMate');
-        if (data) {
-            this.data = JSON.parse(data);
-        }
+    loadFromDataBase() {
+        let ownerId = JSON.parse(localStorage.getItem('user'))?.id
+        axios.get(`/dataStudyMate?ownerId=${ownerId}`)
+            .then(({data}) => {
+                this.data = data;
+                // console.log(this.data)
+            })
+            .catch((err) => console.log(err))
     }
 
     setSelectedRows(rows) {
@@ -44,9 +50,9 @@ class DataStore {
     }
 
     deleteSelectedRows() {
-        const newData = this.data.filter(row => !this.selectedRows.includes(row.id));
-        this.data = newData;
-        localStorage.setItem('dataStudyMate', JSON.stringify(newData));
+        this.selectedRows.forEach((id) => {
+            this.removeItem(id)
+        })
     }
 
     setFilterCriteria(criteria) {

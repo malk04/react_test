@@ -1,17 +1,23 @@
 import Modal from "../components/Modal";
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Table from "../components/Table";
 import Tooltip from "../components/Tooltip";
 import dataStore from "../stores/DataStore";
 import {observer} from "mobx-react-lite";
-import TrashIcon from "../icons/TrashIcon";
+import { FaTrashAlt } from "react-icons/fa";
+import {CustomContext} from "../utils/Context";
 
 const TablePage = observer(() => {
     const [isOpen, setIsOpen] = useState(false)
     const [dataItem, setDataItem] = useState(undefined)
     const [filterValue, setFilterValue] = useState("");
+    const {user} = useContext(CustomContext)
+
+    useEffect(() => {
+        dataStore.loadFromDataBase()
+    }, [user]);
 
     const handleAdd = (item) => {
         dataStore.addItem({...item, id: Date.now().toString()});
@@ -62,7 +68,7 @@ const TablePage = observer(() => {
                                     <button className="button-style"
                                             style={{fontSize: 40, padding: "0 12px", margin: 0}}
                                             onClick={() => dataStore.deleteSelectedRows()}>
-                                        <TrashIcon style={{fill: "#F8F7EE", width: 25, height: 25}}/>
+                                        <FaTrashAlt style={{fill: "#F8F7EE", width: 25, height: 25}}/>
                                     </button>
                                 </Tooltip>
                             </div>}

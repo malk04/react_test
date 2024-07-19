@@ -1,14 +1,26 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import {CustomContext} from "../utils/Context";
+import {useNavigate} from "react-router-dom";
 
-const DropdownMenu = ({ buttonText, items }) => {
+const DropdownMenu = ({ buttonText }) => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const {setUser} = useContext(CustomContext)
+    const navigate = useNavigate()
 
     function handleClickOutside(event) {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             setIsOpen(false);
         }
-    };
+    }
+
+    function logOut() {
+        setUser({
+            username: ""
+        })
+        localStorage.removeItem('user')
+        navigate("/")
+    }
 
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutside);
@@ -23,12 +35,13 @@ const DropdownMenu = ({ buttonText, items }) => {
                 {buttonText}
             </div>
             {isOpen && (
-                <ul className="dropdown-menu" onMouseLeave={() => setIsOpen(false)} >
-                    {items.map((item, index) => (
-                        <li key={index} className="dropdown-item">
-                            {item}
-                        </li>
-                    ))}
+                <ul className="dropdown-menu" onMouseLeave={() => setIsOpen(false)}>
+                    <li key={0} className="dropdown-item">
+                        О студенте
+                    </li>
+                    <li key={1} className="dropdown-item" onClick={logOut}>
+                        Выйти
+                    </li>
                 </ul>
             )}
         </div>
