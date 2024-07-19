@@ -1,13 +1,12 @@
 import Modal from "../components/Modal";
 import React, {useContext, useEffect, useState} from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Table from "../components/Table";
 import Tooltip from "../components/Tooltip";
 import dataStore from "../stores/DataStore";
 import {observer} from "mobx-react-lite";
 import { FaTrashAlt } from "react-icons/fa";
 import {CustomContext} from "../utils/Context";
+import MainTemplate from "../components/MainTemplate";
 
 const TablePage = observer(() => {
     const [isOpen, setIsOpen] = useState(false)
@@ -42,8 +41,7 @@ const TablePage = observer(() => {
         dataStore.setFilterCriteria(value);
     }
 
-    return <>
-        <Header/>
+    return <MainTemplate>
         <div className="container not-vertical-center">
             <div style={{maxWidth: 1400, margin: "auto", maxHeight: 700}}>
                 <div style={{display: "flex", justifyContent: "space-between", marginBottom: 15}}>
@@ -85,8 +83,7 @@ const TablePage = observer(() => {
             <Modal isOpen={isOpen} setIsOpen={setIsOpen} initialData={dataItem}
                    setInitialData={setDataItem} onSubmit={dataItem ? handleUpdate : handleAdd}/>
         </div>
-        <Footer/>
-    </>
+    </MainTemplate>
 });
 
 export default TablePage;

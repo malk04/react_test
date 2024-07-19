@@ -11,7 +11,6 @@ export const Context = (props) => {
 
     useEffect(() => {
         if (localStorage.getItem('user') !== null){
-            console.log(JSON.parse(localStorage.getItem('user')))
             setUser(JSON.parse(localStorage.getItem('user')))
         }
     }, []);
