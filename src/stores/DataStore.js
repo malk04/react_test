@@ -40,7 +40,6 @@ class DataStore {
         axios.get(`/dataStudyMate?ownerId=${ownerId}`)
             .then(({data}) => {
                 this.data = data;
-                // console.log(this.data)
             })
             .catch((err) => console.log(err))
     }

@@ -9,6 +9,7 @@ import MainTemplate from "../components/MainTemplate";
 
 const AuthPage = () => {
     const [isOpenPassword, setIsOpenPassword] = useState(false)
+    const [isOpenPassword2, setIsOpenPassword2] = useState(false)
     const [isRegistrationMode, setIsRegistrationMode] = useState(false)
     const [error, setError] = useState(undefined)
     const {user, setUser} = useContext(CustomContext)
@@ -50,7 +51,7 @@ const AuthPage = () => {
                     navigate("/lk")
                 })
                 .catch((err) => {
-                    console.log(err.message, err.response.data)
+                    // console.log(err.message, err.response.data)
                     if (err.response.data === "Cannot find user" || err.response.data === "Incorrect password")
                         setError("Неверный логин или пароль")
                     else
@@ -106,7 +107,7 @@ const AuthPage = () => {
 
                         <div className="margin-xs">
                             <div className="input-group">
-                                <input className={errors?.password ? "input-log invalid" : "input-log"}
+                                <input className="input-log"
                                        type={isOpenPassword ? "text" : "password"}
                                        name="password"
                                        required {...register("password",
@@ -131,8 +132,8 @@ const AuthPage = () => {
 
                         {isRegistrationMode && <div className="margin-xs">
                             <div className="input-group">
-                                <input className={errors?.confirmPassword ? "input-log invalid" : "input-log"}
-                                       type={isOpenPassword ? "text" : "password"}
+                                <input className="input-log"
+                                       type={isOpenPassword2 ? "text" : "password"}
                                        name="confirmPassword"
                                        required {...register("confirmPassword",
                                     {
@@ -143,8 +144,8 @@ const AuthPage = () => {
                                     })}
                                 />
                                 <span className="password-eye"
-                                      onClick={() => setIsOpenPassword(prev => !prev)}>
-                                    {isOpenPassword ? <FaEyeSlash className="icon-table"/> :
+                                      onClick={() => setIsOpenPassword2(prev => !prev)}>
+                                    {isOpenPassword2 ? <FaEyeSlash className="icon-table"/> :
                                         <FaEye className="icon-table"/>}
                                 </span>
                                 <label className="label-log" htmlFor="password">Повторите пароль</label>

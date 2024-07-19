@@ -36,7 +36,7 @@ const DropdownMenu = ({ buttonText }) => {
             </div>
             {isOpen && (
                 <ul className="dropdown-menu" onMouseLeave={() => setIsOpen(false)}>
-                    <li key={0} className="dropdown-item">
+                    <li key={0} className="dropdown-item" onClick={() => navigate("/about")}>
                         О студенте
                     </li>
                     <li key={1} className="dropdown-item" onClick={logOut}>
