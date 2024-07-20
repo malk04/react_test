@@ -2,6 +2,7 @@
   "name": "react_test",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://malk04.github.io/react_test",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -10,6 +11,7 @@
     "classnames": "^2.5.1",
     "concurrently": "^8.2.2",
     "craco-less": "^3.0.1",
+    "gh-pages": "^6.1.1",
     "json-server": "^0.17.3",
     "json-server-auth": "^2.1.0",
     "less": "^4.2.0",
@@ -31,7 +33,9 @@
     "server": "json-server-auth db.json -r routes.json --port 8080",
     "build": "craco build",
     "test": "craco test",
-    "dev": "concurrently \"npm run start\" \"npm run server\""
+    "dev": "concurrently \"npm run start\" \"npm run server\"",
+    "predeploy": "npm run build",
+    "deploy":"gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
