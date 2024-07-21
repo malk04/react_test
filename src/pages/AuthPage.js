@@ -6,6 +6,8 @@ import axios from "../utils/axios";
 import {CustomContext} from "../utils/Context";
 import {useNavigate} from "react-router-dom";
 import MainTemplate from "../components/MainTemplate";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../firebase";
 
 const AuthPage = () => {
     const [isOpenPassword, setIsOpenPassword] = useState(false)
@@ -31,31 +33,27 @@ const AuthPage = () => {
 
     const handleOnSubmit = (data) => {
         let withEmail = {
-            email: data.username + "@gmail.com", // в json-server-auth необходимо использование почты
-            ...data
+            ...data,
+            email: data.username + "@gmail.com", // в firebase необходимо использование почты
+            password: data.password + "11", // в firebase необходимо минимум 6 символов, в ТЗ 4 поэтому так добавляем
         }
 
         // если форма входа
         if (!isRegistrationMode) {
-            axios.post('/login', withEmail)
-                .then(({data}) => {
+            signInWithEmailAndPassword(auth, withEmail.email, withEmail.password)
+                .then((data) => {
                     setUser({
-                        token: data.accessToken,
                         ...data.user
                     })
                     localStorage.setItem('user', JSON.stringify({
-                        token: data.accessToken,
                         ...data.user
                     }))
                     setError(undefined)
                     navigate("/lk")
                 })
                 .catch((err) => {
-                    // console.log(err.message, err.response.data)
-                    if (err.response.data === "Cannot find user" || err.response.data === "Incorrect password")
-                        setError("Неверный логин или пароль")
-                    else
-                        setError("Ошибка")
+                    console.log(err)
+                    setError("Неверный логин или пароль")
                 })
         } else {
             if (!validatePasswordMatch(data)){
@@ -64,24 +62,17 @@ const AuthPage = () => {
             }
 
             setError(undefined)
-            axios.post('/register', withEmail)
-                .then(({data}) => {
+            createUserWithEmailAndPassword(auth, withEmail.email, withEmail.password)
+                .then((data) => {
                     setUser({
-                        token: data.accessToken,
                         ...data.user
                     })
                     localStorage.setItem('user', JSON.stringify({
-                        token: data.accessToken,
                         ...data.user
                     }))
                     navigate("/lk")
                 })
-                .catch((err) => {
-                    if (err.response.data === "Email already exists")
-                        setError("Такой логин уже зарегистрирован")
-                    else
-                        setError("Ошибка")
-                })
+                .catch(() => setError("Такой логин уже зарегистрирован"))
         }
     };
 
@@ -161,7 +152,7 @@ const AuthPage = () => {
 
                         <div style={{display: "flex", justifyContent: "center"}}>
                             <button className="button-style">
-                                Войти
+                                {isRegistrationMode ? "Зарегистрироваться" : "Войти"}
                             </button>
                         </div>
 

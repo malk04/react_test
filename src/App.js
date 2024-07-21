@@ -23,10 +23,15 @@ const App = () => {
     useEffect(() => {
         const getData = async () => {
             try {
-                const token = JSON.parse(localStorage.getItem('user'))?.token;
+                const token = JSON.parse(localStorage.getItem('user'))?.accessToken;
+                let uid = JSON.stringify(JSON.parse(localStorage.getItem('user'))?.uid);
                 if (token) {
-                    let ownerId = JSON.parse(localStorage.getItem('user')).id
-                    await axios.get(`/dataStudyMate?ownerId=${ownerId}`)
+                    await axios.get('dataStudyMate.json', {
+                        params: {
+                            orderBy: 'ownerId',
+                            equalTo: uid
+                        }
+                    })
                     setIsAuthenticated(true)
                 } else {
                     setIsAuthenticated(false)

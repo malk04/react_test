@@ -11,6 +11,7 @@
     "classnames": "^2.5.1",
     "concurrently": "^8.2.2",
     "craco-less": "^3.0.1",
+    "firebase": "^10.12.4",
     "gh-pages": "^6.1.1",
     "json-server": "^0.17.3",
     "json-server-auth": "^2.1.0",
@@ -35,7 +36,7 @@
     "test": "craco test",
     "dev": "concurrently \"npm run start\" \"npm run server\"",
     "predeploy": "npm run build",
-    "deploy":"gh-pages -d build"
+    "deploy": "gh-pages -d build -b main"
   },
   "eslintConfig": {
     "extends": [

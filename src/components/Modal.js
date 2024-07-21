@@ -56,7 +56,7 @@ const Modal = observer(({isOpen, setIsOpen, onSubmit, initialData, setInitialDat
     const handleOnSubmit = (data) => {
         if (!data.id) {
             data.id = uuid();
-            data.ownerId = user.id
+            data.ownerId = user.uid
         }
         let {updatedData, result} = checkIsPassed(data)
         console.log(result);

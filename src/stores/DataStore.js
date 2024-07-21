@@ -11,15 +11,15 @@ class DataStore {
     }
 
     addItem(item) {
-        axios.post('/dataStudyMate', item)
-            .then(({data}) => {
-                 this.data.push(data);
+        axios.post(`dataStudyMate/${item.id}.json`, item)
+            .then(() => {
+                 this.data.push(item);
             })
             .catch((err) => console.log(err))
     }
 
     removeItem(id) {
-        axios.delete(`/dataStudyMate/${id}`)
+        axios.delete(`dataStudyMate/${id}.json`)
             .then(() => {
                 this.data = this.data.filter(item => item.id !== id);
             })
@@ -27,19 +27,23 @@ class DataStore {
     }
 
     updateItem(updatedItem) {
-        axios.put(`/dataStudyMate/${updatedItem.id}`, updatedItem)
-            .then(({data}) => {
+        axios.put('', updatedItem)
+            .then(() => {
                 const index = this.data.findIndex(item => item.id === updatedItem.id);
-                this.data[index] = data;
+                this.data[index] = updatedItem;
             })
             .catch((err) => console.log(err))
     }
 
     loadFromDataBase() {
-        let ownerId = JSON.parse(localStorage.getItem('user'))?.id
-        axios.get(`/dataStudyMate?ownerId=${ownerId}`)
+        let uid = JSON.parse(localStorage.getItem('user'))?.uid
+        const params = new URLSearchParams({
+            orderBy: JSON.stringify('ownerId'),
+            equalTo: JSON.stringify(uid)
+        });
+        axios.get('dataStudyMate.json?' + params.toString())
             .then(({data}) => {
-                this.data = data;
+                this.data = Object.values(data);
             })
             .catch((err) => console.log(err))
     }
