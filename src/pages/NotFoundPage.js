@@ -15,7 +15,7 @@ const NotFoundPage = () => {
     return <MainTemplate>
         <div className="container">
             {isPlay ? <div className="pedro">
-                    <img src={process.env.PUBLIC_URL + "../gif/pedro.gif"} alt="pedro"/>
+                    <img src={process.env.PUBLIC_URL + "gif/pedro.gif"} alt="pedro"/>
                 </div>
                 :
                 <div>
