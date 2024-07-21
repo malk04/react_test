@@ -9,12 +9,9 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.2",
     "classnames": "^2.5.1",
-    "concurrently": "^8.2.2",
     "craco-less": "^3.0.1",
     "firebase": "^10.12.4",
     "gh-pages": "^6.1.1",
-    "json-server": "^0.17.3",
-    "json-server-auth": "^2.1.0",
     "less": "^4.2.0",
     "mobx": "^6.13.0",
     "mobx-react-lite": "^4.0.7",
@@ -31,12 +28,10 @@
   },
   "scripts": {
     "start": "craco start",
-    "server": "json-server-auth db.json -r routes.json --port 8080",
     "build": "craco build",
     "test": "craco test",
-    "dev": "concurrently \"npm run start\" \"npm run server\"",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -b main"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

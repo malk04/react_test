@@ -11,25 +11,26 @@ class DataStore {
     }
 
     addItem(item) {
-        axios.post(`dataStudyMate/${item.id}.json`, item)
+        // используем здесь put т.к. при post создается случайный ключ, нам это не совсем удобно
+        axios.post(`dataStudyMate.json`, item)
             .then(() => {
                  this.data.push(item);
             })
             .catch((err) => console.log(err))
     }
 
-    removeItem(id) {
-        axios.delete(`dataStudyMate/${id}.json`)
+    removeItem(keyName) {
+        axios.delete(`dataStudyMate/${keyName}.json`)
             .then(() => {
-                this.data = this.data.filter(item => item.id !== id);
+                this.data = this.data.filter(item => item.keyName !== keyName);
             })
             .catch((err) => console.log(err))
     }
 
     updateItem(updatedItem) {
-        axios.put('', updatedItem)
+        axios.put(`dataStudyMate/${updatedItem.keyName}.json`, updatedItem)
             .then(() => {
-                const index = this.data.findIndex(item => item.id === updatedItem.id);
+                const index = this.data.findIndex(item => item.keyName === updatedItem.keyName);
                 this.data[index] = updatedItem;
             })
             .catch((err) => console.log(err))
@@ -43,7 +44,16 @@ class DataStore {
         });
         axios.get('dataStudyMate.json?' + params.toString())
             .then(({data}) => {
-                this.data = Object.values(data);
+                console.log(data)
+                const arr = Object.keys(data).map(key => ({ [key]: {...data[key], keyName: key} }));
+                const obj = arr.reduce((result, current) => {
+                    const key = Object.keys(current)[0];
+                    result[key] = current[key];
+                    return result;
+                }, {});
+
+                console.log(Object.values(obj))
+                this.data = Object.values(obj);
             })
             .catch((err) => console.log(err))
     }

@@ -84,13 +84,13 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
                              content="Удалить"
                              style={{width: "80px", textAlign: "center"}}>
                         <FaTrashAlt className="icon-table"
-                                    onClick={() => onDeleteRow instanceof Function && onDeleteRow(row.id)}/>
+                                    onClick={() => onDeleteRow instanceof Function && onDeleteRow(row.keyName)}/>
                     </Tooltip>
                     <Tooltip position="top"
                              content="Редактировать"
                              style={{width: "120px", marginLeft: "10px", textAlign: "center"}}>
                         <RiEdit2Fill style={{marginLeft: 10}} className="icon-table"
-                                  onClick={() => onEditRow instanceof Function && onEditRow(row)}/>
+                                  onClick={() => onEditRow instanceof Function && onEditRow(row.id)}/>
                     </Tooltip>
                 </>
             ),
@@ -130,7 +130,8 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
     };
 
     function handleRowSelected(state) {
-        dataStore.setSelectedRows(state.selectedRows.map(row => row.id));
+        console.log(state.selectedRows.map(row => row.keyName))
+        dataStore.setSelectedRows(state.selectedRows.map(row => row.keyName));
     }
 
     return <DataTable data={data}
