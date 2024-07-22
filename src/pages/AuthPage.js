@@ -159,6 +159,7 @@ const AuthPage = () => {
                         <div className="link-log"
                              onClick={() => {
                                  setIsRegistrationMode(prev => !prev)
+                                 setError(undefined)
                                  reset()
                              }}>
                             {!isRegistrationMode ? "Регистрация" : "Вход"}
