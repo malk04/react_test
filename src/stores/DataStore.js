@@ -44,7 +44,6 @@ class DataStore {
         });
         axios.get('dataStudyMate.json?' + params.toString())
             .then(({data}) => {
-                console.log(data)
                 const arr = Object.keys(data).map(key => ({ [key]: {...data[key], keyName: key} }));
                 const obj = arr.reduce((result, current) => {
                     const key = Object.keys(current)[0];
@@ -52,7 +51,6 @@ class DataStore {
                     return result;
                 }, {});
 
-                console.log(Object.values(obj))
                 this.data = Object.values(obj);
             })
             .catch((err) => console.log(err))

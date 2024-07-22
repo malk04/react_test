@@ -25,7 +25,6 @@ const App = () => {
             try {
                 const token = JSON.parse(localStorage.getItem('user'))?.accessToken;
                 let uid = JSON.stringify(JSON.parse(localStorage.getItem('user'))?.uid);
-                console.log(token, uid)
                 if (token) {
                     await axios.get('dataStudyMate.json', {
                         params: {

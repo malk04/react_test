@@ -96,7 +96,7 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
                              content="Редактировать"
                              style={{width: "120px", marginLeft: "10px", textAlign: "center"}}>
                         <RiEdit2Fill style={{marginLeft: 10}} className="icon-table"
-                                  onClick={() => onEditRow instanceof Function && onEditRow(row.id)}/>
+                                  onClick={() => onEditRow instanceof Function && onEditRow(row)}/>
                     </Tooltip>
                 </>
             ),
@@ -136,7 +136,6 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
     };
 
     function handleRowSelected(state) {
-        console.log(state.selectedRows.map(row => row.keyName))
         dataStore.setSelectedRows(state.selectedRows.map(row => row.keyName));
     }
 

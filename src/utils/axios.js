@@ -12,11 +12,9 @@ instance.interceptors.request.use((config) => {
         return config;
     }
     let token = JSON.parse(localStorage.getItem('user'))?.accessToken;
-    console.log(url, config)
     let params = new URLSearchParams()
     params.append("auth", token)
     config.params = params
-    console.log(config)
 
     return config
 })
