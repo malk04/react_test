@@ -2,7 +2,6 @@ import React, {useContext, useState} from "react";
 import {FaEye} from "react-icons/fa";
 import {FaEyeSlash} from "react-icons/fa";
 import {useForm} from "react-hook-form";
-import axios from "../utils/axios";
 import {CustomContext} from "../utils/Context";
 import {useNavigate} from "react-router-dom";
 import MainTemplate from "../components/MainTemplate";
