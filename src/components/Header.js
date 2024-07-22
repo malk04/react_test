@@ -8,7 +8,7 @@ const Header = () => {
     return <header>
         <div className="full-height full-width flex">
             <div className="title-header">StudyMate</div>
-            {user.username !== "" && <div style={{position: "absolute", right: 25}}>
+            {user.username !== "" && <div className="header-position">
                 <DropdownMenu buttonText="Малькова Анастасия Сергеевна"/>
             </div>}
         </div>

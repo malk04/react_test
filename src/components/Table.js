@@ -12,8 +12,9 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
             name: "Предмет",
             sortable: true,
             selector: row => row.discipline,
+            minWidth: 50,
             style: {
-                minWidth: 250
+                minWidth: 50
             },
             cell: (row) => (
                 <div style={{whiteSpace: "normal"}}>{row.discipline}</div>
@@ -22,8 +23,9 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
         {
             name: "5",
             selector: row => row.mark5,
+            minWidth: 20,
             style: {
-                minWidth: 120
+                minWidth: 20
             },
             cell: (row) => (
                 <div style={{whiteSpace: "normal"}}>{row.mark5}</div>
@@ -32,8 +34,9 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
         {
             name: "4",
             selector: row => row.mark4,
+            minWidth: 20,
             style: {
-                minWidth: 120
+                minWidth: 20
             },
             cell: (row) => (
                 <div style={{whiteSpace: "normal"}}>{row.mark4}</div>
@@ -42,8 +45,9 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
         {
             name: "3",
             selector: row => row.mark3,
+            minWidth: 20,
             style: {
-                minWidth: 120
+                minWidth: 20
             },
             cell: (row) => (
                 <div style={{whiteSpace: "normal"}}>{row.mark3}</div>
@@ -52,8 +56,9 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
         {
             name: "2",
             selector: row => row.mark2,
+            minWidth: 20,
             style: {
-                minWidth: 120
+                minWidth: 20
             },
             cell: (row) => (
                 <div style={{whiteSpace: "normal"}}>{row.mark2}</div>
@@ -62,9 +67,9 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
         {
             name: "Пропущенных занятий",
             selector: row => row.skipped,
-            minWidth: 300,
+            minWidth: 50,
             style: {
-                minWidth: 280,
+                minWidth: 50,
             },
         },
         {
@@ -72,8 +77,9 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
             cell: (row) => (
                 row.passed ? "Да" : "Нет"
             ),
+            minWidth: 30,
             style: {
-                minWidth: 120,
+                minWidth: 30,
             },
         },
         {
@@ -86,7 +92,7 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
                         <FaTrashAlt className="icon-table"
                                     onClick={() => onDeleteRow instanceof Function && onDeleteRow(row.keyName)}/>
                     </Tooltip>
-                    <Tooltip position="top"
+                    <Tooltip position="left"
                              content="Редактировать"
                              style={{width: "120px", marginLeft: "10px", textAlign: "center"}}>
                         <RiEdit2Fill style={{marginLeft: 10}} className="icon-table"
@@ -94,9 +100,9 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
                     </Tooltip>
                 </>
             ),
-            minWidth: 120,
+            minWidth: 50,
             style: {
-                minWidth: 120,
+                minWidth: 50,
             },
         },
     ]
@@ -104,13 +110,13 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
     const customStyle = {
         rows: {
             style: {
-                fontSize: "20px",
-                backgroundColor: "#F8F7EE",
+                fontSize: window.innerWidth <= 768 ? "12px" : "16px",
+                backgroundColor: window.innerWidth <= 480 ? "white" : "#F8F7EE",
             }
         },
         headCells: {
             style: {
-                fontSize: "20px",
+                fontSize: window.innerWidth <= 768 ? "12px" : "16px",
                 color: "#3E1F0F",
             }
         },
@@ -145,7 +151,7 @@ const Table = observer(({data, onDeleteRow, onEditRow}) => {
                       noDataComponent={<div style={{padding: 24}}>Нет данных</div>}
                       selectableRows
                       onSelectedRowsChange={handleRowSelected}
-                      selectableRowsComponentProps={{ style: { width: '50px' } }}
+                      selectableRowsComponentProps={{ style: { width: window.innerWidth <= 480 ? "30px" : "50px" } }}
     />
 });
 

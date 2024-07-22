@@ -115,6 +115,11 @@ body {
   margin: auto;
 }
 
+.header-position {
+  position: absolute;
+  right: 25px;
+}
+
 .button-style {
   background-color: @cherry;
   border: none;
@@ -325,8 +330,16 @@ footer {
     flex-basis: 50px;
   }
 
-  .rdt_TableCol {
+  .rdt_TableCol:nth-child(7) {
+    flex-basis: 300px;
+  }
+
+  .rdt_TableCol:nth-child(8) {
     flex-basis: 120px;
+  }
+
+  .rdt_TableCol {
+    flex-basis: 70px;
   }
 }
 
@@ -339,11 +352,41 @@ footer {
     flex-basis: 50px;
   }
 
-  .rdt_TableCell {
+  .rdt_TableCell:nth-child(7) {
+    flex-basis: 300px;
+  }
+
+  .rdt_TableCell:nth-child(8) {
     flex-basis: 120px;
+  }
+
+  .rdt_TableCell {
+    flex-basis: 70px;
   }
 }
 
+.dFsSgh {
+  min-width: 20px;
+}
+
+.table-div {
+  max-width: 1400px;
+  margin: auto;
+  max-height: 700px;
+}
+
+.table-box {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.button-table {
+  font-size: 40px;
+  padding: 0 12px;
+  margin: 0;
+}
 
 // Tooltip
 .tooltipWrapper {
@@ -435,4 +478,10 @@ footer {
   img {
     width: 400px;
   }
+}
+
+.trash {
+  fill: #F8F7EE;
+  width: 25px;
+  height: 25px;
 }

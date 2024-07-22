@@ -43,14 +43,14 @@ const TablePage = observer(() => {
 
     return <MainTemplate>
         <div className="container not-vertical-center">
-            <div style={{maxWidth: 1400, margin: "auto", maxHeight: 700}}>
-                <div style={{display: "flex", justifyContent: "space-between", marginBottom: 15}}>
+            <div className="table-div">
+                <div className="table-box">
                     <div>
                         <div className="tooltipWrapper">
                             <Tooltip position="top"
                                      content="Добавить"
                                      style={{width: "80px", textAlign: "center"}}>
-                                <button className="button-style" style={{fontSize: 40, padding: "0 12px", margin: 0}}
+                                <button className="button-style button-table"
                                         onClick={() => setIsOpen(true)}>+
                                 </button>
                             </Tooltip>
@@ -63,10 +63,9 @@ const TablePage = observer(() => {
                                              width: "160px",
                                              textAlign: "center"
                                          }}>
-                                    <button className="button-style"
-                                            style={{fontSize: 40, padding: "0 12px", margin: 0}}
+                                    <button className="button-style button-table"
                                             onClick={() => dataStore.deleteSelectedRows()}>
-                                        <FaTrashAlt style={{fill: "#F8F7EE", width: 25, height: 25}}/>
+                                        <FaTrashAlt className="trash"/>
                                     </button>
                                 </Tooltip>
                             </div>}

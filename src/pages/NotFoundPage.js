@@ -18,7 +18,7 @@ const NotFoundPage = () => {
                     <img src={process.env.PUBLIC_URL + "/gif/pedro.gif"} alt="pedro"/>
                 </div>
                 :
-                <div>
+                <div style={{display: "grid"}}>
                     <div style={{textAlign: "center"}}>
                         Упссс... Ничего не найдено
                     </div>
