@@ -8,7 +8,7 @@ import {Context} from "./utils/Context";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <BrowserRouter basename="/react_test">
+        <BrowserRouter>
             <Context>
                 <App/>
             </Context>
