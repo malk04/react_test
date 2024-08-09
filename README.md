@@ -1,6 +1,6 @@
 # React JS Project
 
-This project is built using React JS, Craco Less, Firebase, Firebase Auth, and Axios libraries. It is a simple web application that demonstrates the capabilities of authorizing users via Firebase Auth and sending requests to the server using Axios.
+This project is built using React JS, Craco Less, Firebase, Firebase Auth, MobX and Axios libraries. It is a simple web application that demonstrates the capabilities of authorizing users via Firebase Auth and sending requests to the server using Axios.
 
 ## How to run the project
 
